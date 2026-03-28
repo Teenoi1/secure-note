@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 // Note Schema
 const noteSchema = new mongoose.Schema({
+    title: {
+      type: String,
+      required: true,
+      maxlength: 200,
+    },
     content: {
       type: String,
       required: true,
@@ -20,5 +25,7 @@ const noteSchema = new mongoose.Schema({
         versionKey: false,
     }
 );
+
+noteSchema.index({ updated_at: -1 });
 
 export const Note = mongoose.model("Note", noteSchema);

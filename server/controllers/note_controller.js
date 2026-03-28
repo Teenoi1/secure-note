@@ -3,9 +3,9 @@ import { Note } from "../models/note_model.js";
 // Create a new note
 export const createNote = async (req, res) => {
   try {
-    const { content } = req.body;
+    const { title, content } = req.body;
 
-    const newNote = new Note({ content });
+    const newNote = new Note({ title, content });
     await newNote.save();
     res.status(201).json(newNote);
   } catch (error) {
@@ -20,11 +20,10 @@ export const createNote = async (req, res) => {
 // Get all notes
 export const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find().sort({ created_at: -1 });
-    //res.json(notes);
+    const notes = await Note.find().sort({ updated_at: -1 });
     res.status(200).json({
         status_code: 200,
-        data: notes,
+        notes: notes,
     });
   } catch (error) {
     res.status(500).json({ 
@@ -42,14 +41,10 @@ export const getNoteById = async (req, res) => {
     if (!note) {
       return res.status(404).json({ 
         status_code: 404,
-        message: "Note not found",
-        error: error.message
+        message: "Note not found"
       });
     }
-    res.status(200).json({
-        status_code: 200,
-        data: note,
-    });
+    res.status(200).json(note);
   } catch (error) {
     res.status(500).json({ 
         status_code: 500,
@@ -62,12 +57,12 @@ export const getNoteById = async (req, res) => {
 // Update a note
 export const updateNote = async (req, res) => {
   try {
-    const { content } = req.body;
+    const { title, content } = req.body;
     const { id } = req.params;
 
     const updatedNote = await Note.findByIdAndUpdate(
       id,
-      { content,
+      { title, content,
         updated_at: Date.now()
       },
       { new: true }
