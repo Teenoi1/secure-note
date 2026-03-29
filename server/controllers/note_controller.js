@@ -72,7 +72,7 @@ export const deleteNote = async (req, res) => {
       return sendError(res, ERROR_CODES.NOTE_NOT_FOUND);
     }
 
-    return sendSuccess(res, ERROR_CODES.DELETED_SUCCESSFULLY);
+    return sendSuccess(res, SUCCESS_CODES.DELETED_SUCCESSFULLY);
   } catch (error) {
     console.error("Delete Note Error:", error.message);
     return sendError(res, ERROR_CODES.DELETE_NOTE_ERROR, { error: error.message });

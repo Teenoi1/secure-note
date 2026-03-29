@@ -31,8 +31,8 @@ export const validateNoteUpdate = [
   body("content")
     .optional()
     .trim()
-    .isLength({ min: 1, max: 100000 })
-    .withMessage("Content must be between 1 and 100000 characters")
+    .isLength({ min: 0, max: 100000 })
+    .withMessage("Content must be between 0 and 100000 characters")
     .escape(),
 ];
 

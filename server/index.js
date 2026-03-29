@@ -43,8 +43,8 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Parse JSON (with size limit)
-app.use(express.json({ limit: "10kb" }));
+// Parse JSON (with relaxed size limit so notes can be long)
+app.use(express.json({ limit: "1mb" }));
 
 // Middleware to authenticate access token
 app.use(authenticateAccessToken);
