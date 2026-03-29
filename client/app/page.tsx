@@ -22,14 +22,16 @@ export default function Home() {
 
   // Load notes on mount
   useEffect(() => {
+    console.log("🔥 Home mounted");
     loadNotes();
-  }, []);
+  }, []); 
 
   const loadNotes = async () => {
+    console.log("🔥 calling fetchNotes...");
     try {
       setIsLoading(true);
-      setError('');
       const data = await fetchNotes();
+      console.log("🔥 data:", data);
       setNotes(data);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to load notes';
