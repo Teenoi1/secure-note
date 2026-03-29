@@ -13,9 +13,9 @@
   --popover-foreground: #ffffff;
   --primary: #E56717;
   --primary-foreground: #fff;
-  --secondary: #2a2a2a;
+  --secondary: #1b1b1b;
   --secondary-foreground: #ffffff;
-  --muted: #2a2a2a;
+  --muted: #3a3a3a;
   --muted-foreground: #888;
   --accent: #2a2a2a;
   --accent-foreground: #ffffff;
@@ -38,6 +38,8 @@
 
   body {
     @apply bg-[var(--background)] text-[var(--foreground)];
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      sans-serif;
   }
 
   html {
@@ -79,6 +81,7 @@
     font-size: 1rem;
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
+    border-width: 0;
   }
 
   input {
@@ -125,6 +128,21 @@
   50% {
     opacity: 0.5;
   }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out;
 }
 
 .animate-shimmer {

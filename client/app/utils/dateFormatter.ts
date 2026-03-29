@@ -1,15 +1,33 @@
 /**
- * Format date to readable string
+ * Format date to readable string in style "18 march 2020"
  */
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
-  return date.toLocaleDateString('th-TH', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+
+  if (Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const months = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+  ] as const;
+
+  const monthName = months[date.getMonth()];
+
+  return `${day} ${monthName} ${year}`;
 };
 
 /**

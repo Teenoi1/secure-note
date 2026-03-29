@@ -61,7 +61,10 @@ export const SkeletonCard: React.FC<{ count?: number }> = ({ count = 3 }) => {
   return (
     <>
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="space-y-4 p-6 bg-[var(--card)] rounded-lg border border-[var(--border)]">
+        <div
+          key={i}
+          className="space-y-4 p-6 bg-[var(--card)]/60 rounded-2xl border border-[var(--border)]"
+        >
           <Skeleton variant="text" className="h-6 w-3/4" />
           <div className="space-y-2">
             <Skeleton variant="line" className="h-4 w-full" />
