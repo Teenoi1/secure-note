@@ -5,19 +5,18 @@ import {
   updateNoteService, 
   deleteNoteService 
 } from "../services/note_service.js";
+import { ERROR_CODES, SUCCESS_CODES } from "../constants/errorCodes.js";
+import { sendError, sendSuccess, sendData } from "../utils/responseHandler.js";
 
 // Create a new note
 export const createNote = async (req, res) => {
   try {
     const { title, content } = req.body;
     const newNote = await createNoteService(title, content);
-    res.status(201).json(newNote);
+    return sendData(res, 201, newNote, "Note created successfully");
   } catch (error) {
-    res.status(500).json({ 
-        status_code: 500,
-        message: "Failed to create note",
-        error: error.message 
-    });
+    console.error("Create Note Error:", error.message);
+    return sendError(res, ERROR_CODES.CREATE_NOTE_ERROR, { error: error.message });
   }
 };
 
@@ -25,16 +24,10 @@ export const createNote = async (req, res) => {
 export const getNotes = async (req, res) => {
   try {
     const notes = await getNotesService();
-    res.status(200).json({
-        status_code: 200,
-        notes: notes,
-    });
+    return sendData(res, 200, notes, "Notes fetched successfully");
   } catch (error) {
-    res.status(500).json({ 
-        status_code: 500,
-        message: "Failed to fetch notes",
-        error: error.message
-    });
+    console.error("Fetch Notes Error:", error.message);
+    return sendError(res, ERROR_CODES.FETCH_NOTES_ERROR, { error: error.message });
   }
 };
 
@@ -43,18 +36,12 @@ export const getNoteById = async (req, res) => {
   try {
     const note = await getNoteByIdService(req.params.id);
     if (!note) {
-      return res.status(404).json({ 
-        status_code: 404,
-        message: "Note not found"
-      });
+      return sendError(res, ERROR_CODES.NOTE_NOT_FOUND);
     }
-    res.status(200).json(note);
+    return sendData(res, 200, note);
   } catch (error) {
-    res.status(500).json({ 
-        status_code: 500,
-        message: "Failed to fetch note",
-        error: error.message
-    });
+    console.error("Fetch Note Error:", error.message);
+    return sendError(res, ERROR_CODES.FETCH_NOTE_ERROR, { error: error.message });
   }
 };
 
@@ -66,18 +53,12 @@ export const updateNote = async (req, res) => {
 
     const updatedNote = await updateNoteService(id, title, content);
     if (!updatedNote) {
-      return res.status(404).json({ 
-        status_code: 404,
-        message: "Note not found"
-      });
+      return sendError(res, ERROR_CODES.NOTE_NOT_FOUND);
     }
-    res.json(updatedNote);
+    return sendData(res, 200, updatedNote, "Note updated successfully");
   } catch (error) {
-    res.status(500).json({ 
-        status_code: 500,
-        message: "Failed to update note",
-        error: error.message
-    });
+    console.error("Update Note Error:", error.message);
+    return sendError(res, ERROR_CODES.UPDATE_NOTE_ERROR, { error: error.message });
   }
 };
 
@@ -88,21 +69,12 @@ export const deleteNote = async (req, res) => {
     const deletedNote = await deleteNoteService(id);
     
     if (!deletedNote) {
-      return res.status(404).json({ 
-        status_code: 404,
-        message: "Note not found"
-     });
+      return sendError(res, ERROR_CODES.NOTE_NOT_FOUND);
     }
 
-    res.status(200).json({ 
-        status_code: 200,
-        message: "Deleted successfully" 
-    });
+    return sendSuccess(res, ERROR_CODES.DELETED_SUCCESSFULLY);
   } catch (error) {
-    res.status(500).json({ 
-        status_code: 500,
-        message: "Failed to delete note",
-        error: error.message
-    });
+    console.error("Delete Note Error:", error.message);
+    return sendError(res, ERROR_CODES.DELETE_NOTE_ERROR, { error: error.message });
   }
 };
