@@ -37,7 +37,7 @@ app.use(generalLimiter);
 
 // CORS Configuration
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(",") || ["http://localhost:3000"],
+  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -46,8 +46,6 @@ app.use(cors({
 // Parse JSON (with relaxed size limit so notes can be long)
 app.use(express.json({ limit: "1mb" }));
 
-// Middleware to authenticate access token
-app.use(authenticateAccessToken);
 
 // Request Logging
 app.use((req, res, next) => {
@@ -59,7 +57,11 @@ app.use((req, res, next) => {
 connectDB();
 
 // Routes
-app.use("/notes", noteRoutes);
+app.get("/", (req, res) => {
+  res.send("API is running 🚀");
+});
+
+app.use("/notes", authenticateAccessToken, noteRoutes);
 
 // 404 Handler
 app.use((req, res) => {
