@@ -5,7 +5,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { fetchNoteById, updateNote as updateNoteApi, deleteNote as deleteNoteApi } from '../../services/noteApi';
 import { Note } from '../../types/note';
 import { Skeleton } from '../../components/Skeleton';
-import { formatDate } from '../../utils/dateFormatter';
+import { formatDate, formatRelativeTime  } from '../../utils/dateFormatter';
+import { time } from 'console';
 
 export default function NotePage() {
   const params = useParams();
@@ -120,14 +121,14 @@ export default function NotePage() {
         <div className="flex justify-between items-center mb-6 sm:mb-8 gap-4">
           <button
             onClick={() => router.push('/')}
-            className="px-3 sm:px-4 py-2 text-sm sm:text-base text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors rounded-full hover:bg-[var(--card)]/20 border-none"
+            className="px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-all rounded-xl bg-[#1a1a1a] hover:bg-[#333333] border-none"
           >
             ← Back
           </button>
 
           <button
             onClick={handleDelete}
-            className="text-lg sm:text-xl text-[var(--destructive)] hover:opacity-70 transition-opacity p-2 hover:bg-[var(--destructive)]/10 rounded-full border-none"
+            className="text-lg sm:text-xl text-[var(--destructive)] transition-all px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-[#333333] rounded-2xl bg-[#1a1a1a] border-none"
             title="Delete note"
           >
             🗑️
@@ -137,7 +138,7 @@ export default function NotePage() {
         {/* Updated timestamp */}
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs sm:text-sm text-[var(--muted-foreground)]">
-            Updated: {formatDate(note.updated_at)}
+            Updated: {formatDate(note.updated_at)}, {formatRelativeTime(note.updated_at)}
           </p>
           {autoSaveStatus === 'saving' && (
             <span className="text-[10px] sm:text-xs text-[var(--muted-foreground)] animate-pulse">
@@ -151,15 +152,14 @@ export default function NotePage() {
           )}
         </div>
 
-        {/* Card container with rounded corners */}
+        {/* Card container with rounded corners */} 
         <div className="bg-[var(--card)]/30 backdrop-blur-md border border-[var(--border)] rounded-2xl p-6 sm:p-8 flex-1 flex flex-col">
           {/* Title */}
           <input
             value={note.title}
             onChange={(e) => setNote({ ...note, title: e.target.value })}
             placeholder="Note title..."
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-transparent outline-none border-none focus:outline-none focus:ring-0 w-full text-[var(--foreground)] placeholder-[var(--muted-foreground)] mb-10 sm:mb-12 leading-tight"
-          />
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold bg-transparent outline-none border-none focus:outline-none focus:ring-0 w-full text-[var(--foreground)] placeholder-[var(--muted-foreground)] mb-10 sm:mb-12 leading-tight break-words"          />
 
           {/* Content - seamless, fills remaining space */}
           <textarea
@@ -171,8 +171,8 @@ export default function NotePage() {
 
           {/* Footer - Created date */}
           <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-[var(--border)]/50">
-            <p className="text-xs sm:text-sm text-[var(--muted-foreground)]">
-              Created: {formatDate(note.created_at)}
+            <p className="text-xs sm:text-sm text-[var(--muted-foreground)] text-center">
+              Created: {formatDate(note.created_at)}, {formatRelativeTime(note.created_at)}
             </p>
           </div>
         </div>
