@@ -1,12 +1,16 @@
-import { Note } from "../models/note_model.js";
+import { 
+  createNoteService, 
+  getNotesService, 
+  getNoteByIdService, 
+  updateNoteService, 
+  deleteNoteService 
+} from "../services/note_service.js";
 
 // Create a new note
 export const createNote = async (req, res) => {
   try {
     const { title, content } = req.body;
-
-    const newNote = new Note({ title, content });
-    await newNote.save();
+    const newNote = await createNoteService(title, content);
     res.status(201).json(newNote);
   } catch (error) {
     res.status(500).json({ 
@@ -20,7 +24,7 @@ export const createNote = async (req, res) => {
 // Get all notes
 export const getNotes = async (req, res) => {
   try {
-    const notes = await Note.find().sort({ updated_at: -1 });
+    const notes = await getNotesService();
     res.status(200).json({
         status_code: 200,
         notes: notes,
@@ -37,7 +41,7 @@ export const getNotes = async (req, res) => {
 // Get by ID
 export const getNoteById = async (req, res) => {
   try {
-    const note = await Note.findById(req.params.id);
+    const note = await getNoteByIdService(req.params.id);
     if (!note) {
       return res.status(404).json({ 
         status_code: 404,
@@ -60,18 +64,11 @@ export const updateNote = async (req, res) => {
     const { title, content } = req.body;
     const { id } = req.params;
 
-    const updatedNote = await Note.findByIdAndUpdate(
-      id,
-      { title, content,
-        updated_at: Date.now()
-      },
-      { new: true }
-    );
+    const updatedNote = await updateNoteService(id, title, content);
     if (!updatedNote) {
       return res.status(404).json({ 
         status_code: 404,
-        message: "Note not found",
-        error: error.message
+        message: "Note not found"
       });
     }
     res.json(updatedNote);
@@ -88,14 +85,12 @@ export const updateNote = async (req, res) => {
 export const deleteNote = async (req, res) => {
   try {
     const { id } = req.params;
-
-    const deletedNote = await Note.findByIdAndDelete(id);
+    const deletedNote = await deleteNoteService(id);
     
     if (!deletedNote) {
       return res.status(404).json({ 
         status_code: 404,
-        message: "Note not found",
-        error: error.message
+        message: "Note not found"
      });
     }
 
