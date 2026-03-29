@@ -23,6 +23,7 @@ export default function Home() {
   // Load notes on mount
   useEffect(() => {
     console.log("🔥 Home mounted");
+    console.log("🔥 API:", process.env.NEXT_PUBLIC_API_URL);
     loadNotes();
   }, []); 
 
@@ -34,9 +35,10 @@ export default function Home() {
       console.log("🔥 data:", data);
       setNotes(data);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Failed to load notes';
-      setError(message);
-      console.error('Load notes error:', err);
+      // const message = err instanceof Error ? err.message : 'Failed to load notes';
+      // setError(message);
+      // console.error('Load notes error:', err);
+      console.error("🔥 ERROR:", err);
     } finally {
       setIsLoading(false);
     }
