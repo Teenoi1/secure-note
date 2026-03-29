@@ -7,17 +7,17 @@ export const ERROR_CODES = {
   },
 
   // 401 - Unauthorized (Missing credentials)
-  MISSING_API_KEY: {
+  MISSING_TOKEN: {
     status: 401,
-    message: "API key is required",
-    code: "MISSING_API_KEY"
+    message: "Token is required",
+    code: "MISSING_TOKEN"
   },
 
   // 403 - Forbidden (Invalid credentials or permissions)
-  INVALID_API_KEY: {
+  INVALID_TOKEN: {
     status: 403,
-    message: "Invalid API key",
-    code: "INVALID_API_KEY"
+    message: "Invalid token",
+    code: "INVALID_TOKEN"
   },
 
   PERMISSION_DENIED: {
@@ -74,13 +74,13 @@ export const ERROR_CODES = {
   INTERNAL_ERROR: {
     status: 500,
     message: "Internal server error",
-    code: "INTERNAL_ERROR"
+    code: "INTERNAL_ERROR"  
   },
 
-  API_KEY_NOT_CONFIGURED: {
+  SECRET_KEY_NOT_CONFIGURED: {
     status: 500,
-    message: "Server configuration error - API_KEY not set",
-    code: "API_KEY_NOT_CONFIGURED"
+    message: "Server configuration error - token not set",
+    code: "TOKEN_NOT_CONFIGURED"
   },
 
   CREATE_NOTE_ERROR: {

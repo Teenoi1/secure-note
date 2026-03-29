@@ -1,7 +1,7 @@
 import { Note, CreateNoteInput, UpdateNoteInput } from '../types/note';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY || 'noteapp-dev-api-key-65050173';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
+const SECRET_KEY = process.env.NEXT_PUBLIC_SECRET_KEY || '';
 
 /**
  * Fetch all notes from backend
@@ -12,7 +12,7 @@ export const fetchNotes = async (): Promise<Note[]> => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
+        'Authorization': `Bearer ${SECRET_KEY}`,
       },
       credentials: 'include',
     });
@@ -38,7 +38,7 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
+        'Authorization': `Bearer ${SECRET_KEY}`,
       },
       credentials: 'include',
     });
@@ -63,8 +63,8 @@ export const createNote = async (data: CreateNoteInput): Promise<Note> => {
     const response = await fetch(`${API_BASE_URL}/notes`, {
       method: 'POST',
       headers: {
-        'x-api-key': API_KEY,
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SECRET_KEY}`,
       },
       credentials: 'include',
       body: JSON.stringify(data),
@@ -90,7 +90,7 @@ export const updateNote = async (id: string, data: UpdateNoteInput): Promise<Not
     const response = await fetch(`${API_BASE_URL}/notes/${id}`, {
       method: 'PUT',
       headers: {
-        'x-api-key': API_KEY,
+        'Authorization': `Bearer ${SECRET_KEY}`,
         'Content-Type': 'application/json',
       },
       credentials: 'include',
@@ -117,7 +117,7 @@ export const deleteNote = async (id: string): Promise<void> => {
     const response = await fetch(`${API_BASE_URL}/notes/${id}`, {
       method: 'DELETE',
       headers: {
-        'x-api-key': API_KEY,
+        'Authorization': `Bearer ${SECRET_KEY}`,
         'Content-Type': 'application/json',
       },
       credentials: 'include',

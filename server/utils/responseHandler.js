@@ -2,6 +2,17 @@ import { ERROR_CODES, SUCCESS_CODES } from "../constants/errorCodes.js";
 
 // Send Error Response
 export const sendError = (res, errorCode, additionalData = null) => {
+  // Safety: avoid crashing when middleware passes `undefined`
+  if (!errorCode) {
+    const internal = ERROR_CODES.INTERNAL_ERROR;
+    return res.status(500).json({
+      status_code: internal?.status ?? 500,
+      message: internal?.message ?? "Internal server error",
+      code: internal?.code ?? "INTERNAL_ERROR",
+      ...(additionalData && { ...additionalData }),
+    });
+  }
+
   const { status, message, code } = errorCode;
   
   const response = {
