@@ -53,8 +53,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Connect to MongoDB
-connectDB();
 
 // Routes
 app.get("/", (req, res) => {
@@ -83,8 +81,21 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, () => {
-    console.log(` 🏇 Server is running on port ${PORT}`);
-    console.log(`📌 All security middleware is active!`);
-    console.log(`✅ SECRET_KEY is configured`);
-});
+// Start the server after connecting to the database
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`🏇 Server is running on port ${PORT}`);
+      console.log(`📌 All security middleware is active!`);
+      console.log(`✅ SECRET_KEY is configured`);
+    });
+
+  } catch (error) {
+    console.error("❌ Failed to start server:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
