@@ -24,7 +24,7 @@ export const updateNoteService = async (id, title, content) => {
   const updatedNote = await Note.findByIdAndUpdate(
     id,
     { title, content, updated_at: Date.now() },
-    { new: true }
+    { returnDocument: 'after' }
   );
   return updatedNote;
 };
