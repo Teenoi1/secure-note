@@ -3,6 +3,9 @@ import { Note, CreateNoteInput, UpdateNoteInput } from '../types/note';
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 const SECRET_KEY = process.env.NEXT_PUBLIC_SECRET_KEY || '';
 
+console.log('API_BASE_URL:', API_BASE_URL);
+console.log("SECRET_KEY exists:", !!SECRET_KEY);
+
 /**
  * Fetch all notes from backend
  */
