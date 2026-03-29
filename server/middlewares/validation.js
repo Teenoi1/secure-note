@@ -14,9 +14,8 @@ export const validateNoteInput = [
   body("content")
     .trim()
     .default("")
-    .notEmpty().withMessage("Content is required")
-    .isLength({ min: 1, max: 10000 })
-    .withMessage("Content must be between 1 and 10000 characters")
+    .isLength({ min: 0, max: 10000 })
+    .withMessage("Content must be between 0 and 10000 characters")
     .escape(),
 ];
 

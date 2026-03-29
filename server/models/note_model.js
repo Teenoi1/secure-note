@@ -9,7 +9,8 @@ const noteSchema = new mongoose.Schema({
     },
     content: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
       maxlength: 100000,
     },
     created_at: {
