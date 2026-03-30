@@ -88,9 +88,7 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Right side - Sort and create button */}
-            {/* ปุ่มจะอยู่ในแถวเดียวกับ แถวที่แสดงค่าจำนวน notes ทั้งหมด*/}
-            
+            {/* Right side - Sort and create button */}            
             <div className="flex items-center gap-4 sm:gap-6 flex-shrink-0 ">
               {/* Sort dropdown */}
               <select
@@ -159,7 +157,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-[var(--card)]/50 backdrop-blur-md border-t border-[var(--border)]">
         <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 text-center text-xs sm:text-sm text-[var(--muted-foreground)]">
-          <p>© 2026 Secure Note(Web Applications Project). Implemented & Designed by Teenoi1</p>
+          <p>© 2026 Secure Note. Designed & Engineered by Teenoi1 🫩</p>
         </div>
       </footer>
     </div>
