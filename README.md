@@ -6,7 +6,6 @@ Secure Note คือเว็บแอปพลิเคชันสำหร�
 
 **Vercel**
 - **Domains**: https://secure-note-roan.vercel.app
-- **Deployment**: secure-note-k1dtb0tix-chayakorn-jaikunyas-projects.vercel.app
 
 **Render**
 - **Base API**: https://secure-note-72y0.onrender.com
