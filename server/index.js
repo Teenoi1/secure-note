@@ -31,8 +31,6 @@ app.use(securityHeaders);
 app.use(detectBot);
 app.use(blockSecurityScanners);
 
-// Rate Limiting
-app.use(generalLimiter);
 
 // CORS Configuration - Only allow requests from our frontend (deployed on Vercel) and localhost for development
 const allowedDomains = [

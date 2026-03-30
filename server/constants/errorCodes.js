@@ -51,25 +51,6 @@ export const ERROR_CODES = {
     code: "ROUTE_NOT_FOUND"
   },
 
-  // 429 - Too Many Requests (Rate limiting)
-  RATE_LIMIT_EXCEEDED: {
-    status: 429,
-    message: "Too many requests, please try again later",
-    code: "RATE_LIMIT_EXCEEDED"
-  },
-
-  TOO_MANY_NOTES: {
-    status: 429,
-    message: "Too many notes created, please try again later",
-    code: "TOO_MANY_NOTES"
-  },
-
-  TOO_MANY_DELETIONS: {
-    status: 429,
-    message: "Too many deletions, please try again later",
-    code: "TOO_MANY_DELETIONS"
-  },
-
   // 500 - Internal Server Error
   INTERNAL_ERROR: {
     status: 500,
