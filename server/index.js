@@ -35,9 +35,29 @@ app.use(blockSecurityScanners);
 // Rate Limiting
 app.use(generalLimiter);
 
-// CORS Configuration
+// CORS Configuration - Only allow requests from our frontend (deployed on Vercel) and localhost for development
+const allowedDomains = [
+  "secure-note"
+];
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    const isVercel = origin.endsWith(".vercel.app");
+    const isAllowedProject = allowedDomains.some(name =>
+      origin.includes(name)
+    );
+
+    if (
+      (isVercel && isAllowedProject) ||
+      origin.includes("localhost")
+    ) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
