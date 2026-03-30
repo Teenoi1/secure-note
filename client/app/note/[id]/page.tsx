@@ -73,6 +73,11 @@ export default function NotePage() {
     }
   };
 
+  const handleAutoResize = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] px-4 sm:px-6 py-6 sm:py-8">
@@ -113,7 +118,7 @@ export default function NotePage() {
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] px-4 sm:px-6 py-4 sm:py-6">
       <div className="max-w-4xl mx-auto flex flex-col min-h-[calc(100vh-3rem)] sm:min-h-[calc(100vh-4rem)]">
         {error && (
-          <div className="mb-4 rounded-xl border border-[var(--destructive)]/60 bg-[var(--destructive)]/10 px-4 py-3 text-xs sm:text-sm text-[var(--destructive)]">
+          <div className="mb-4 rounded-xl border border-[var(--destructive)]/60 bg-[var(--destructive)]/10 px-4 py-3 text-xs sm:text-sm text-[var(--destructive)] text-center">
             {error}
           </div>
         )}
@@ -138,7 +143,7 @@ export default function NotePage() {
         {/* Updated timestamp */}
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs sm:text-sm text-[var(--muted-foreground)]">
-            Updated: {formatDate(note.updated_at)}, {formatRelativeTime(note.updated_at)}
+            Updated at : {formatDate(note.updated_at)}, {formatRelativeTime(note.updated_at)}
           </p>
           {autoSaveStatus === 'saving' && (
             <span className="text-[10px] sm:text-xs text-[var(--muted-foreground)] animate-pulse">
@@ -155,11 +160,19 @@ export default function NotePage() {
         {/* Card container with rounded corners */} 
         <div className="bg-[var(--card)]/30 backdrop-blur-md border border-[var(--border)] rounded-2xl p-6 sm:p-8 flex-1 flex flex-col">
           {/* Title */}
-          <input
+          <textarea
             value={note.title}
-            onChange={(e) => setNote({ ...note, title: e.target.value })}
+            onChange={(e) => {
+              setNote({ ...note, title: e.target.value });
+              handleAutoResize(e);
+            }}
             placeholder="Note title..."
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold bg-transparent outline-none border-none focus:outline-none focus:ring-0 w-full text-[var(--foreground)] placeholder-[var(--muted-foreground)] mb-10 sm:mb-12 leading-tight break-words"          />
+            rows={1}
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold bg-transparent outline-none border-none focus:outline-none focus:ring-0 w-full text-[var(--foreground)] placeholder-[var(--muted-foreground)] mb-10 sm:mb-12 leading-tight resize-none overflow-hidden"
+          />
+
+          {/* Divider */}
+          <div className="h-px w-full mb-6 sm:mb-8 bg-[var(--border)]" />
 
           {/* Content - seamless, fills remaining space */}
           <textarea
@@ -172,7 +185,7 @@ export default function NotePage() {
           {/* Footer - Created date */}
           <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-[var(--border)]/50">
             <p className="text-xs sm:text-sm text-[var(--muted-foreground)] text-center">
-              Created: {formatDate(note.created_at)}, {formatRelativeTime(note.created_at)}
+              Created at : {formatDate(note.created_at)}, {formatRelativeTime(note.created_at)}
             </p>
           </div>
         </div>

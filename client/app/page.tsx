@@ -22,23 +22,16 @@ export default function Home() {
 
   // Load notes on mount
   useEffect(() => {
-    console.log("🔥 Home mounted");
-    console.log("🔥 API:", process.env.NEXT_PUBLIC_API_URL);
     loadNotes();
   }, []); 
 
   const loadNotes = async () => {
-    console.log("🔥 calling fetchNotes...");
     try {
       setIsLoading(true);
       const data = await fetchNotes();
-      console.log("🔥 data:", data);
       setNotes(data);
     } catch (err) {
-      // const message = err instanceof Error ? err.message : 'Failed to load notes';
-      // setError(message);
-      // console.error('Load notes error:', err);
-      console.error("🔥 ERROR:", err);
+      setError('Failed to load notes.');
     } finally {
       setIsLoading(false);
     }
@@ -130,7 +123,7 @@ export default function Home() {
                 No notes Found
               </h2>
               <p className="text-sm sm:text-base text-[var(--muted-foreground)] mb-6">
-                Let's create your first note! Click the button below to get started.
+                Let's create your first note! 
               </p>
               <button
                 onClick={handleCreateNote}
