@@ -61,16 +61,6 @@ export const sendValidationError = (res, errors) => {
   });
 };
 
-// Send Rate Limit Error
-export const sendRateLimitError = (res, limitType = "general") => {
-  const errorCode = limitType === "notes" 
-    ? ERROR_CODES.TOO_MANY_NOTES
-    : limitType === "deletions"
-    ? ERROR_CODES.TOO_MANY_DELETIONS
-    : ERROR_CODES.RATE_LIMIT_EXCEEDED;
-
-  return sendError(res, errorCode);
-};
 
 // Send Permission Error
 export const sendPermissionError = (res, userRole, action) => {
@@ -84,6 +74,5 @@ export default {
   sendSuccess,
   sendData,
   sendValidationError,
-  sendRateLimitError,
   sendPermissionError
 };

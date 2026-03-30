@@ -12,7 +12,6 @@ import {
     validateNoteId,
     validationErrorHandler
 } from "../middlewares/validation.js";
-import { createLimiter, deleteLimiter } from "../middlewares/rateLimiter.js";
 
 const router = express.Router();
 

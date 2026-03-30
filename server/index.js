@@ -6,7 +6,6 @@ import noteRoutes from "./routes/note_routes.js";
 
 // Import all security middleware
 import { securityHeaders } from "./middlewares/security.js";
-import { generalLimiter } from "./middlewares/rateLimiter.js";
 import { detectBot, blockSecurityScanners } from "./middlewares/botDetection.js";
 import { authenticateAccessToken } from "./middlewares/authorization.js";
 
