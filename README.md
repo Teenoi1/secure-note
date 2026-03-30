@@ -2,6 +2,17 @@
 
 Secure Note คือเว็บแอปพลิเคชันสำหรับสร้าง อ่าน แก้ไข และลบโน้ตได้อย่างเป็นระบบ โดยออกแบบให้ใช้งานง่าย แสดงผลรวดเร็ว และแบ่งโครงสร้างแบบแยกฝั่ง Frontend / Backend อย่างชัดเจน เพื่อให้ง่ายต่อการพัฒนาและดูแลต่อในอนาคต
 
+## 🌏 Deployment
+
+**Vercel**
+- **Domains**: https://secure-note-roan.vercel.app
+- **Deployment**: secure-note-k1dtb0tix-chayakorn-jaikunyas-projects.vercel.app
+
+**Render**
+- **Base API**: https://secure-note-72y0.onrender.com
+
+---
+
 ## 🚀 Tech Stack
 
 - **Frontend:** Next.js, React, Tailwind CSS  
@@ -15,52 +26,16 @@ Secure Note คือเว็บแอปพลิเคชันสำหร�
 
 ```
 secure-note/
-│
-├── frontend/                 # Next.js (React)
-│   ├── app/                  # App Router (Next.js 13+)
-│   │   ├── page.tsx          # Homepage
-│   │   ├── note/
-│   │   │   └── [id]/
-│   │   │       └── page.tsx  # Note Detail Page
-│   │
-│   ├── components/           # UI Components
-│   │   ├── Skeleton.tsx
-│   │   ├── NoteCard.tsx
-|   |   └── index.ts
-│   │
-│   ├── services/             # API calls
-│   │   └── noteApi.ts
-│   │
-│   ├── types/                # TypeScript types
-│   │   └── note.ts
-│   │
-│   ├── utils/                # Helper functions
-│   │   └── dateFormatter.ts
-│   │
-│   ├── styles/               # CSS / Tailwind
-│   └── package.json
-│
-├── backend/                  # Node.js + Express
-│   ├── controllers/          # Business logic
-│   │   └── noteController.js
-│   │
-│   ├── models/               # Mongoose schemas
-│   │   └── noteModel.js
-│   │
-│   ├── routes/               # API routes
-│   │   └── noteRoutes.js
-│   │
-│   ├── config/               # Config (DB connection)
-│   │   └── db.js
-│   │
-│   ├── middleware/           # Middleware (auth, error)
-│   │   └── authMiddleware.js
-│   │
-│   ├── server.js             # Entry point
-│   └── package.json
-│
-├── README.md
-└── REPORT.md
+├── client/                # Next.js Frontend
+│   ├── app/               # App Router pages
+│   ├── components/        # Reusable UI components
+│   ├── services/          # API call logic
+│   └── types/             # TypeScript definitions
+└── server/                # Node.js Express Backend
+    ├── config/            # Database connection
+    ├── controllers/       # Business logic
+    ├── models/            # Database schemas
+    └── routes/            # API endpoints
 ```
 
 ---
