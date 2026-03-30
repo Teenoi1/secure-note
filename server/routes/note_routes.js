@@ -19,10 +19,10 @@ router.get("/", getNotes);
 
 router.get("/:id", validateNoteId, validationErrorHandler, getNoteById);
 
-router.post("/", createLimiter, validateNoteInput, validationErrorHandler, createNote);
+router.post("/", validateNoteInput, validationErrorHandler, createNote);
 
 router.put("/:id", validateNoteId, validateNoteUpdate, validationErrorHandler, updateNote);
 
-router.delete("/:id", deleteLimiter, validateNoteId, validationErrorHandler, deleteNote);
+router.delete("/:id", validateNoteId, validationErrorHandler, deleteNote);
 
 export default router;  
